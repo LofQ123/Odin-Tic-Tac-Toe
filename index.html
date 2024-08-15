@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Matemasie&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Titan+One&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Matemasie&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Titan+One&family=VT323&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <title>Odin Tic Tac Toe</title>
+</head>
+<body>
+    <div class="main">
+        <div class="topTextContent">
+            <h1 class="textBig">Tic-Tac-Toe</h1>
+            <p class="textMedium" id="currentRound">Current round: 1</p>
+        </div>
+        <div class="gameScreen">
+            <div class="stats" id="statsLeft">
+                <p class="textMedium">Player 1</p>
+                <hr>
+                <div class="markerCard">
+                    <p class="textSmall">Marker:</p>
+                    <div id="Player1marker">
+                    </div>
+                </div>
+                <p class="textSmall" id="counterPlayer1">Score: 0</p>
+            </div>
+            <div class="gameBoardContainer">
+                <div class="gameBoard">
+                    <div class="cell" id="a1"></div>
+                    <div class="cell" id="a2"></div>
+                    <div class="cell" id="a3"></div>
+                    <div class="cell" id="b1"></div>
+                    <div class="cell" id="b2"></div>
+                    <div class="cell" id="b3"></div>
+                    <div class="cell" id="c1"></div>
+                    <div class="cell" id="c2"></div>
+                    <div class="cell" id="c3"></div>
+                </div>   
+            </div>
+            <div class="stats" id="statsRight">
+                <p class="textMedium">Player 2</p>
+                <hr>
+                <div class="markerCard">
+                    <p class="textSmall">Marker:</p>
+                    <div id="Player2marker">
+                    </div>
+
+                </div>
+                <p class="textSmall" id="counterPlayer2">Score: 0</p>
+            </div>  
+        </div>
+        <div class="bottomTextContent">
+            <p class="textMedium" id="currentTurn">Current turn: Player 1</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="textSmall">Ruslan Alexeev (alexrus5495@gmail.com)</p>
+        <div>
+            <a href="https://github.com/LofQ123" target="_blank" rel="noopener noreferrer"><img src="github-mark.png" alt=""></a>
+        </div>
+    </div>
+    <div class="popup" id="popupChooseMarker">
+        <div class="card">
+            <p class="textSmall">Welcome to the game of Tic-Tac-Toe!</p>
+            <p class="textSmall">To start playing choose your marker:</p>
+            <div class="container">
+                <div class="marker" id="pickCross">
+                    <svg width="800px" height="800px" viewBox="0 0 24 24" id="cross" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><line id="primary" x1="19" y1="19" x2="5" y2="5" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/><line id="primary-2" data-name="primary" x1="19" y1="5" x2="5" y2="19" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/></svg>
+                    <p class="textSmall">"Cross"</p>
+                </div>
+                <div class="marker" id="pickCircle">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><circle style="fill:none;stroke-width:2;stroke-miterlimit:10;" cx="16" cy="16" r="11"/></svg>
+                    <p class="textSmall">"Circle"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="popupIllegalMove">
+        <div class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close-circle-outline</title><path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" /></svg>
+            <p class="textMedium">Oops!</p>
+            <p class="textSmall">You can't select a cell that already has been played</p>
+            <p class="textSmall">Please choose another cell</p>
+            <div class="textMedium button" id="popupIllegalMoveButton">Okay...</div>
+        </div>
+    </div>
+    <div class="popup" id="popupRoundWinner">
+        <div class="card">
+            <p class="textMedium">Hey!</p>
+            <p class="textSmall" id="roundWinnerAnnouncer">Player 1 won this round!</p>
+            <p class="textSmall">Current score:</p>
+                <div class="container">
+                    <p class="textSmall">Player 1 </p>
+                    <p class="textSmall">Player 2 </p>
+                    <p class="textBig" id="Player1Score"></p>
+                    <p class="textBig" id="Player2Score"></p>
+                </div>
+            <div class="textMedium button" id="popupRoundWinnerButton">Next Round</div>
+        </div>
+    </div>
+    <div class="popup" id="popupGameWinner">
+        <div class="card">
+            <p class="textMedium">WooHoo!</p>
+            <p class="textSmall" id="gameWinnerAnnouncer">Player 1 won the game!</p>
+            <p class="textSmall">Total score:</p>
+                <div class="container">
+                    <p class="textSmall">Player 1 </p>
+                    <p class="textSmall">Player 2 </p>
+                    <p class="textBig" id="Player1TotalScore">0</p>
+                    <p class="textBig" id="Player2TotalScore">1</p>
+                </div>
+            <div class="textMedium button" id="popupGameWinnerButton">Play again</div>
+        </div>
+    </div>
+    <div class="popup" id="popupChoosePlayer2">
+        <div class="card">
+            <p class="textMedium">Choose Player 2:</p>
+            <div class="container difficultyContainer">
+                <div class="textSmall difficultyCard" id="Player2Human">
+                    <p>Human</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>account</title><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg>
+                </div>
+                <div class="textSmall difficultyCard" id="Player2Easy">
+                    <p>AI (Easy)</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>signal-cellular-1</title><path d="M19.5,5.5V18.5H17.5V5.5H19.5M12.5,10.5V18.5H10.5V10.5H12.5M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" /></svg>
+                </div>
+                <div class="textSmall difficultyCard" id="Player2Medium">
+                    <p>AI (Medium)</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>signal-cellular-2</title><path d="M19.5,5.5V18.5H17.5V5.5H19.5M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" /></svg>
+                </div>
+                <div class="textSmall difficultyCard" id="Player2Hard">
+                    <p>AI (Hard)</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>signal-cellular-3</title><path d="M21,4H16V20H21V4M14,9H9V20H14V9M7,14H2V20H7V14Z" /></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup" id="popupTie">
+        <div class="card">
+            <p class="textMedium">It's a tie!</p>
+            <p class="textSmall">No one won and there is no more available moves left</p>
+            <p class="textSmall">Current score:</p>
+                <div class="container">
+                    <p class="textSmall">Player 1 </p>
+                    <p class="textSmall">Player 2 </p>
+                    <p class="textBig" id="Player1Score-tie"></p>
+                    <p class="textBig" id="Player2Score-tie"></p>
+                </div>
+            <div class="textMedium button" id="popupTieButton">Next Round</div>
+        </div>
+    </div>
+</body>
+</html>
